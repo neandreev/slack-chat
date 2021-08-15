@@ -9,7 +9,7 @@
 ## Install
 
 ```sh
-$ make install
+  make install
 ```
 
 ## Run
