@@ -14,11 +14,13 @@ const buildState = (defaultState) => {
     channels: [
       { id: generalChannelId, name: 'general', removable: false },
       { id: randomChannelId, name: 'random', removable: false },
+      { id: getNextId(), name: 'stuff', removable: true },
     ],
     messages: [],
     currentChannelId: generalChannelId,
     users: [
       { id: 1, username: 'admin', password: 'admin' },
+      { id: 2, username: 'danila', password: 'andreev' },
     ],
   };
 
@@ -121,9 +123,11 @@ export default (app, defaultState = {}) => {
   });
 
   app.get('/api/v1/data', { preValidation: [app.authenticate] }, (req, reply) => {
+    console.log("REQUEST FOR DATA", req.user);
     const user = state.users.find(({ id }) => id === req.user.userId);
-
+    console.log("USER", user);
     if (!user) {
+      console.log("NO USER HERE");
       reply.send(new Unauthorized());
       return;
     }

@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -6,49 +5,67 @@ import {
   Link,
   Redirect,
 } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Login from './containers/Login/Login.jsx';
-import ProvideAuth, { useAuth } from './components/hoc/ProvideAuth.jsx';
+import Logout from './components/Logout/Logout.jsx';
+import Signup from './containers/Signup/Signup.jsx';
+import { useAuth } from './context/ProvideAuth';
+import Chat from './containers/Chat/Chat.jsx';
+import Modal from './components/Chat/ChannelsModal/ChannelsModal';
 
-export default function App() {
+const App = () => {
   const auth = useAuth();
+  const { t } = useTranslation();
 
   return (
-    <ProvideAuth>
-      <Router>
-        <div>
-          <nav>
-            <ul>
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <Link to="/login">Login</Link>
-              </li>
-            </ul>
-          </nav>
+    <Router>
+      <div>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Hexlet Chat</Link>
+            </li>
+            {
+              auth.state.token
+                ? <li><Link to="/logout">{t('navigation.logout')}</Link></li>
+                : null
+            }
+          </ul>
+        </nav>
 
-          <Switch>
-            <Route path="/login">
-              <Login />
-            </Route>
-            <Route exact path="/">
-              {
-                localStorage.getItem('token')
-                  ? <Home />
-                  : <Redirect to="/login" />
-              }
-            </Route>
-            <Route path="*">
-              <NoMatch />
-            </Route>
-          </Switch>
-        </div>
-      </Router>
-    </ProvideAuth>
+        <Switch>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/signup">
+            <Signup />
+          </Route>
+          <Route path="/logout">
+            <Logout />
+          </Route>
+          <Route exact path="/">
+            {
+              auth.state.token
+                ? <Chat />
+                : <Redirect to="/login" />
+            }
+          </Route>
+          <Route path="*">
+            <NoMatch />
+          </Route>
+        </Switch>
+      </div>
+
+      <Modal />
+    </Router>
   );
-}
+};
 
-const Home = () => (<h2>Home</h2>);
+const Loader = () => (
+  <div className="App">
+    <div>loading...</div>
+  </div>
+);
 
 const NoMatch = () => {
   const message = 'Error 404';
@@ -59,3 +76,5 @@ const NoMatch = () => {
     </div>
   );
 };
+
+export default App;
