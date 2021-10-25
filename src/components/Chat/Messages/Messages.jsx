@@ -7,11 +7,12 @@ const Messages = ({ messages }) => {
   const messagesRef = useRef(null);
 
   useEffect(() => {
+    // messagesRef.current.scrollIntoView(false);
     messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
   }, [messages]);
 
   return (
-    <div ref={messagesRef} className="overflow-auto mb-1">
+    <div ref={messagesRef} className="overflow-auto h-100 mb-1">
       {
         messages.length !== 0
           ? messages.map(({ username, textmessage }, id) => {

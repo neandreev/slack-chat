@@ -24,22 +24,12 @@ const App = () => {
       <div className="d-flex flex-column h-100">
         <nav className="navbar navbar-light bg-light shadow">
           <div className="container justify-content-between">
-            <Link to="/" className="navbar-brand">Hexlet Chat</Link>
+            <Link tabindex="0" to="/" className="navbar-brand">Hexlet Chat</Link>
             {
               auth.state.token
-                ? <Link to="/logout">{t('navigation.logout')}</Link>
+                ? <Link tabindex="0" to="/logout">{t('navigation.logout')}</Link>
                 : null
             }
-            {/* <ul>
-              <li>
-                <Link to="/">Hexlet Chat</Link>
-              </li>
-              {
-                auth.state.token
-                  ? <li><Link to="/logout">{t('navigation.logout')}</Link></li>
-                  : null
-              }
-            </ul> */}
           </div>
         </nav>
 

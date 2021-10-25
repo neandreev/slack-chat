@@ -23,17 +23,17 @@ const Channels = ({ channels, socket }) => {
     if (!channel.removable) return (
       <Button
         onClick={() => dispatch(changeActiveChannel(channel.id))}  
-        className="w-100"
+        className="w-100 text-start"
         variant={variant}
       >{channel.name}</Button>
     )
 
     return (
-      <Dropdown className="w-100" as={ButtonGroup}>
+      <Dropdown className="w-100 d-flex" as={ButtonGroup}>
         <Button
           onClick={() => dispatch(changeActiveChannel(channel.id))}  
           variant={variant}
-          className="w-100"
+          className="w-100 text-start text-truncate"
         >{channel.name}</Button>
 
         <Dropdown.Toggle split variant={variant} id="dropdown-split-basic" />
@@ -73,7 +73,7 @@ const Channels = ({ channels, socket }) => {
       </div>
       <div className="flex-fill">
         <div className='h-100 d-flex flex-column justify-content-between'>
-          <ul className="nav">
+          <ul className="nav nav-pills nav-fill">
             { channels.map(renderChannel) }
           </ul>
           <Button

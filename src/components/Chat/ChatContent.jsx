@@ -39,18 +39,16 @@ const ChatContent = ({ socket }) => {
           {`${t('chat.messages')}:`}
         </h5>
       </div>
-      <div className="d-flex flex-column">
-        <Messages messages={currentChannelMessages} />
-        <div className="form-group mb-3">
-          <Formik initialValues={{ textmessage: '' }} onSubmit={handleNewMessage}>
-            <Form className="d-flex">
-              <div className="flex-fill me-1">
-                <Field data-testid="new-message" placeholder={t('chat.messagePlaceholder')} className="form-control" type="text" name="textmessage" />
-              </div>
-              <button className="btn btn-primary ms-1" type="submit">{t('chat.submit')}</button>
-            </Form>
-          </Formik>
-        </div>
+      <Messages messages={currentChannelMessages} />
+      <div className="form-group mb-3">
+        <Formik initialValues={{ textmessage: '' }} onSubmit={handleNewMessage}>
+          <Form className="d-flex">
+            <div className="flex-fill me-1">
+              <Field data-testid="new-message" placeholder={t('chat.messagePlaceholder')} className="form-control" type="text" name="textmessage" />
+            </div>
+            <button className="btn btn-primary ms-1" type="submit">{t('chat.submit')}</button>
+          </Form>
+        </Formik>
       </div>
     </div>
   );

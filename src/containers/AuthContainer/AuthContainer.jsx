@@ -1,5 +1,5 @@
 export default ({ children, title, footer }) => (
-<div className="row justify-content-center">
+<div className="row justify-content-center mt-4">
       <div className="h-100 col-sm-10 col-md-8 col-lg-6 col-xxl-4">
         <div className="card shadow">
           <div className="card-body text-center">

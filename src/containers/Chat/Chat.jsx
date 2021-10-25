@@ -17,10 +17,10 @@ const Chat = () => {
   return (
     <div className="container h-100 my-4 overflow-hidden rounded shadow border">
       <div className="row h-100">
-        <div className="col-2 bg-light">
+        <div className="col-4 col-md-2 bg-light">
           <Channels socket={socket} channels={data.channels} />
         </div>
-        <div className="col-10 h-100">
+        <div className="col h-100">
           <ChatContent socket={socket} messages={data.messages} />
         </div>
       </div>

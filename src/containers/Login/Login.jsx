@@ -24,14 +24,14 @@ export default () => {
 
   const footer = (
     <div className="text-center card-footer">
-      <span>{t('loginForm.noAccount')} <Link to="/signup">{t('loginForm.signup')}</Link></span>
+      <span>{t('loginForm.noAccount')} <Link tabindex="0" to="/signup">{t('loginForm.signup')}</Link></span>
     </div>
   );
 
   const FormikChildren = ({ errors, touched, isSubmitting }) => (
     <Form>
       <div className="form-floating my-2">
-        <Field name="username" required className="form-control" />
+        <Field id="username" name="username" required className="form-control" />
         <label htmlFor="username">{t('loginForm.login')}</label>
       </div>
       {
