@@ -7,11 +7,13 @@ export default {
       login: "login",
       password: "password",
       submit: "Login",
+      signup: "Signup",
       header: "Welcome to chat",
       unauthorized: 'Wrong login or password',
       required: 'This field is required',
       loginLimit: 'From 3 to 20 symbols',
       passwordLimit: 'From 6 symbols',
+      noAccount: 'Нет аккаунта?',
     },
     signupForm: {
       login: "login",

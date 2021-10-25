@@ -30,22 +30,22 @@ const ChatContent = ({ socket }) => {
         helpers.resetForm();
       })
     });
-  }
+  };
 
   return (
-    <div className="h-100 m-1 d-flex flex-column justify-content-between">
+    <div className="h-100 d-flex flex-column justify-content-between">
       <div className="chat-header">
-        <h5 className="mt-1">
+        <h5 className="mt-2">
           {`${t('chat.messages')}:`}
         </h5>
       </div>
       <div className="d-flex flex-column">
         <Messages messages={currentChannelMessages} />
-        <div className="form-group mb-2">
+        <div className="form-group mb-3">
           <Formik initialValues={{ textmessage: '' }} onSubmit={handleNewMessage}>
             <Form className="d-flex">
               <div className="flex-fill me-1">
-                <Field placeholder={t('chat.messagePlaceholder')} className="form-control" type="text" name="textmessage" />
+                <Field data-testid="new-message" placeholder={t('chat.messagePlaceholder')} className="form-control" type="text" name="textmessage" />
               </div>
               <button className="btn btn-primary ms-1" type="submit">{t('chat.submit')}</button>
             </Form>

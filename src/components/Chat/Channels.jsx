@@ -40,7 +40,7 @@ const Channels = ({ channels, socket }) => {
 
         <Dropdown.Menu>
           <Dropdown.Item
-            onClick={() => dispatch(renameChannelModal({ channelId: channel.id }))}
+            onClick={() => dispatch(renameChannelModal({ channelName: channel.name, channelId: channel.id }))}
           >
             {t('chat.rename')}
           </Dropdown.Item>
@@ -67,17 +67,23 @@ const Channels = ({ channels, socket }) => {
   };
 
   return (
-    <div className="h-100 my-2">
-      <h5>Channels:</h5>
-      <ul className="nav">
-        { channels.map(renderChannel) }
-      </ul>
-      <Button
-        onClick={() => dispatch(addChannelModal({ channelId: null }))}
-        className="btn btn-secondary"
-      >
-        {t('chat.addChannel')}
-      </Button>
+    <div className="h-100 d-flex flex-column">
+      <div className="channels-header">
+        <h5 className="mt-2">{t('chat.channels')}:</h5>
+      </div>
+      <div className="flex-fill">
+        <div className='h-100 d-flex flex-column justify-content-between'>
+          <ul className="nav">
+            { channels.map(renderChannel) }
+          </ul>
+          <Button
+            onClick={() => dispatch(addChannelModal({ channelId: null }))}
+            className="btn btn-secondary mb-3"
+          >
+            {t('chat.addChannel')}
+          </Button>
+        </div>
+      </div>
     </div>
   );
 };

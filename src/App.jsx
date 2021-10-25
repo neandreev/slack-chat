@@ -12,25 +12,35 @@ import Signup from './containers/Signup/Signup.jsx';
 import { useAuth } from './context/ProvideAuth';
 import Chat from './containers/Chat/Chat.jsx';
 import Modal from './components/Chat/ChannelsModal/ChannelsModal';
+import { useSelector } from 'react-redux';
 
 const App = () => {
   const auth = useAuth();
+  const modal = useSelector(state => state.modal);
   const { t } = useTranslation();
 
   return (
     <Router>
-      <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Hexlet Chat</Link>
-            </li>
+      <div className="d-flex flex-column h-100">
+        <nav className="navbar navbar-light bg-light shadow">
+          <div className="container justify-content-between">
+            <Link to="/" className="navbar-brand">Hexlet Chat</Link>
             {
               auth.state.token
-                ? <li><Link to="/logout">{t('navigation.logout')}</Link></li>
+                ? <Link to="/logout">{t('navigation.logout')}</Link>
                 : null
             }
-          </ul>
+            {/* <ul>
+              <li>
+                <Link to="/">Hexlet Chat</Link>
+              </li>
+              {
+                auth.state.token
+                  ? <li><Link to="/logout">{t('navigation.logout')}</Link></li>
+                  : null
+              }
+            </ul> */}
+          </div>
         </nav>
 
         <Switch>
@@ -55,8 +65,11 @@ const App = () => {
           </Route>
         </Switch>
       </div>
-
-      <Modal />
+      {
+        modal.isOpened
+          ? <Modal />
+          : null
+      }
     </Router>
   );
 };

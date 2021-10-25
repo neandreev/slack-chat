@@ -13,9 +13,10 @@ export default {
       required: 'Обязательное поле',
       loginLimit: 'От 3 до 20 символов',
       passwordLimit: 'Не менее 6 символов',
+      noAccount: 'Нет аккаунта?',
     },
     signupForm: {
-      login: "Ващ ник",
+      login: "Ваш ник",
       password: "Пароль",
       passwordConfirmation: "Подтвердите пароль",
       submit: "Зарегистрироваться",

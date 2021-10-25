@@ -1,6 +1,6 @@
 import * as yup from 'yup'
 import { Formik, Form, Field } from 'formik';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../context/ProvideAuth';
 import AuthContainer from '../AuthContainer/AuthContainer';
@@ -19,9 +19,14 @@ export default () => {
       .required(t('loginForm.required')),
     password: yup
       .string()
-      .min(6, t('loginForm.passwordLimit'))
       .required(t('loginForm.required')),
   });
+
+  const footer = (
+    <div className="text-center card-footer">
+      <span>{t('loginForm.noAccount')} <Link to="/signup">{t('loginForm.signup')}</Link></span>
+    </div>
+  );
 
   const FormikChildren = ({ errors, touched, isSubmitting }) => (
     <Form>
@@ -48,29 +53,20 @@ export default () => {
           ? <div className="text-danger w-100 my-2 p-1">{t('loginForm.unauthorized')}</div>
           : null
       }
-      <div className="d-flex align-items-baseline flex-sm-row flex-column">
+      <div className="">
         <button
           disabled={isSubmitting}
           className="flex-fill btn btn-primary w-100"
           type="submit"
         >
           {t('loginForm.submit')}
-        </button>
-        <div className="baseline w-100 mx-sm-2 mx-0 my-sm-0 my-2">Или</div>
-        <button
-          disabled={isSubmitting}
-          className="flex-fill btn btn-success w-100"
-          type="submit"
-        >
-          {t('loginForm.signup')}
-        </button>
+        </button>        
       </div>
-      
     </Form>
   );
 
   return (
-    <AuthContainer title={t('loginForm.header')}>
+    <AuthContainer title={t('loginForm.header')} footer={footer}>
       <Formik
         onSubmit={onSubmit}
         validationSchema={validationSchema}
