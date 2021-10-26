@@ -18,6 +18,7 @@ export default createSlice({
       ))
       .addCase('GET_DATA_FAILURE', (state, action) => {
         const { error } = action.payload;
+        console.log(error);
         return { ...state, unauthorized: true };
       })
       .addCase('CHANNEL_CHANGE', (state, action) => (
@@ -27,9 +28,9 @@ export default createSlice({
         { ...state, messages: [...state.messages, action.payload.message] }
       ))
       .addCase('ADD_CHANNEL', (state, action) => (
-        { ...state, channels: [...state.channels, action.payload.channel]}
-      )).
-      addCase('REMOVE_CHANNEL', (state, action) => {
+        { ...state, channels: [...state.channels, action.payload.channel] }
+      ))
+      .addCase('REMOVE_CHANNEL', (state, action) => {
         const newState = {
           ...state,
           channels: state.channels.filter((channel) => channel.id !== action.payload.id),
@@ -38,11 +39,14 @@ export default createSlice({
         return newState;
       })
       .addCase('RENAME_CHANNEL', (state, action) => (
-        { ...state, channels: state.channels.map((channel) => (
-          channel.id === action.payload.id
-            ? { ...channel, name: action.payload.name }
-            : channel
-        )) }
+        {
+          ...state,
+          channels: state.channels.map((channel) => (
+            channel.id === action.payload.id
+              ? { ...channel, name: action.payload.name }
+              : channel
+          )),
+        }
       ));
   },
-})
+});
