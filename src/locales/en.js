@@ -27,7 +27,7 @@ export default {
       passwordsNotMatch: 'Passwords not match',
     },
     chat: {
-      channels: 'channels',
+      channels: 'Channels',
       messages: 'Messages',
       addChannel: 'Add channel',
       noMessages: 'No messages here... Be the first!',
