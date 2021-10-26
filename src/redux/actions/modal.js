@@ -2,8 +2,14 @@ import { createAction } from '@reduxjs/toolkit';
 
 export const closeModal = createAction('MODAL_CLOSE');
 
-export const renameChannelModal = (data) => createAction('RENAME_CHANNEL_MODAL_OPEN')({ data });
+export const renameChannelModal = (data) => (
+  createAction('MODAL_OPEN')({ type: 'renameChannel', data })
+);
 
-export const removeChannelModal = (data) => createAction('REMOVE_CHANNEL_MODAL_OPEN')({ data });
+export const removeChannelModal = (data) => (
+  createAction('MODAL_OPEN')({ type: 'removeChannel', data })
+);
 
-export const addChannelModal = createAction('ADD_CHANNEL_MODAL_OPEN');
+export const addChannelModal = () => (
+  createAction('MODAL_OPEN')({ type: 'addChannel' })
+);

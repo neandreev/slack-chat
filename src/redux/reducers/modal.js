@@ -9,18 +9,11 @@ export default createSlice({
   initialState,
   extraReducers: (builder) => {
     builder
-      .addCase('ADD_CHANNEL_MODAL_OPEN', (state, action) => (
-        { isOpened: true, type: 'addChannel' }
+      .addCase('MODAL_OPEN', (_, action) => (
+        { isOpened: true, type: action.payload.type, data: action.payload.data }
       ))
-      .addCase('RENAME_CHANNEL_MODAL_OPEN', (state, action) => (
-        { isOpened: true, type: 'renameChannel', data: action.payload.data }
-      ))
-      .addCase('REMOVE_CHANNEL_MODAL_OPEN', (state, action) => (
-        { isOpened: true, type: 'removeChannel', data: action.payload.data }
-      ))
-      .addCase('MODAL_CLOSE', (state, action) => (
+      .addCase('MODAL_CLOSE', () => (
         { isOpened: false }
-      ))
-      .addDefaultCase((state, action) => state);
+      ));
   },
 });
