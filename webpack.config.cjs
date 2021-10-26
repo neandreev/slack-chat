@@ -18,7 +18,9 @@ module.exports = {
     compress: true,
     port: 8080,
     host: '0.0.0.0',
-    publicPath: '/assets/',
+    static: {
+      publicPath: '/assets/',
+    },
     historyApiFallback: true,
   },
   plugins: [
