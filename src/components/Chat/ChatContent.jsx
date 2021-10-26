@@ -1,5 +1,6 @@
-import { Formik, Field, Form } from 'formik';
+import _ from 'lodash';
 import { useEffect } from 'react';
+import { Formik, Field, Form } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { useAuth } from '../../context/ProvideAuth.jsx';
@@ -12,9 +13,8 @@ const ChatContent = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const { currentChannelId, messages } = useSelector((state) => state.data);
-  const currentChannelMessages = messages
-    .filter((message) => message.channelId === currentChannelId);
-  const { state: { username } } = useAuth();
+  const { username } = useAuth().state;
+  const currentChannelMessages = _.filter(messages, { channelId: currentChannelId });
 
   useEffect(() => {
     dispatch(getData());
@@ -47,9 +47,18 @@ const ChatContent = () => {
         <Formik initialValues={{ textmessage: '' }} onSubmit={handleNewMessage}>
           <Form className="d-flex">
             <div className="flex-fill me-1">
-              <Field autoComplete="off" data-testid="new-message" placeholder={t('chat.messagePlaceholder')} className="form-control" type="text" name="textmessage" />
+              <Field
+                autoComplete="off"
+                data-testid="new-message"
+                placeholder={t('chat.messagePlaceholder')}
+                className="form-control"
+                type="text"
+                name="textmessage"
+              />
             </div>
-            <button className="btn btn-primary ms-1" type="submit">{t('chat.submit')}</button>
+            <button className="btn btn-primary ms-1" type="submit">
+              {t('chat.submit')}
+            </button>
           </Form>
         </Formik>
       </div>
