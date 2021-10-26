@@ -21,10 +21,6 @@ export const getData = () => async (dispatch) => {
 
 export const changeActiveChannel = (id) => createAction('CHANNEL_CHANGE')({ id });
 
-// export const newMessage = (message) => (dispatch) => (
-//   dispatch({ type: 'NEW_MESSAGE', payload: { message }})
-// );
-
 export const newMessage = (message) => createAction('NEW_MESSAGE')(message);
 
 export const addChannel = (channel) => createAction('ADD_CHANNEL')({ channel });
