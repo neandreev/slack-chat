@@ -123,11 +123,11 @@ export default (app, defaultState = {}) => {
   });
 
   app.get('/api/v1/data', { preValidation: [app.authenticate] }, (req, reply) => {
-    console.log("REQUEST FOR DATA", req.user);
+    console.log('REQUEST FOR DATA', req.user);
     const user = state.users.find(({ id }) => id === req.user.userId);
-    console.log("USER", user);
+    console.log('USER', user);
     if (!user) {
-      console.log("NO USER HERE");
+      console.log('NO USER HERE');
       reply.send(new Unauthorized());
       return;
     }

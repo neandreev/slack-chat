@@ -29,7 +29,6 @@ const useProvideAuth = () => {
         cb();
       } catch (e) {
         setState({ ...state, unauthorized: true });
-        console.dir(e);
       }
     },
     signUp: async (cb, values) => {

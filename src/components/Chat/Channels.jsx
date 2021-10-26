@@ -1,4 +1,5 @@
 import cn from 'classnames';
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Dropdown, Button, ButtonGroup } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
@@ -8,11 +9,32 @@ import {
   removeChannelModal,
   renameChannelModal,
 } from '../../redux/actions/modal';
+import {
+  addChannel,
+  removeChannel,
+  renameChannel,
+} from '../../redux/actions/data';
+import { useSocket } from '../../context/ProvideSocket';
 
-const Channels = ({ channels, socket }) => {
+const Channels = ({ channels }) => {
+  const socket = useSocket();
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const { currentChannelId } = useSelector((state) => state.data);
+
+  useEffect(() => {
+    socket.on('newChannel', (channel) => {
+      dispatch(addChannel(channel));
+    });
+
+    socket.on('renameChannel', ({ id, name }) => {
+      dispatch(renameChannel(id, name));
+    });
+
+    socket.on('removeChannel', ({ id }) => {
+      dispatch(removeChannel(id));
+    });
+  }, []);
 
   const renderButton = (channel) => {
     const variant = cn({

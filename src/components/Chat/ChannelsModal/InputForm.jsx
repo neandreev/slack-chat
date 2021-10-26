@@ -1,9 +1,7 @@
 import { Formik, Form } from 'formik';
 
-export default ({ channelName = '', onSubmit, testid }) => {
-  console.log(channelName);
-  
-  return <Formik
+export default ({ channelName = '', onSubmit, testid }) => (
+  <Formik
     initialValues={{ channelName }}
     onSubmit={onSubmit}
   >
@@ -18,4 +16,4 @@ export default ({ channelName = '', onSubmit, testid }) => {
       </Form>
     )}
   </Formik>
-};
+);

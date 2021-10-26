@@ -41,7 +41,6 @@ const app = (
       </Provider>
     </ErrorBoundary>
   </RollbarProvider>
-  
 );
 
 ReactDOM.render(app, document.querySelector('#chat'));

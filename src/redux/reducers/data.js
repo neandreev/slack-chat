@@ -18,7 +18,6 @@ export default createSlice({
       ))
       .addCase('GET_DATA_FAILURE', (state, action) => {
         const { error } = action.payload;
-        console.dir(error);
         return { ...state, unauthorized: true };
       })
       .addCase('CHANNEL_CHANGE', (state, action) => (
@@ -31,7 +30,6 @@ export default createSlice({
         { ...state, channels: [...state.channels, action.payload.channel]}
       )).
       addCase('REMOVE_CHANNEL', (state, action) => {
-        console.log(action);
         const newState = {
           ...state,
           channels: state.channels.filter((channel) => channel.id !== action.payload.id),

@@ -24,10 +24,10 @@ const App = () => {
       <div className="d-flex flex-column h-100">
         <nav className="navbar navbar-light bg-light shadow">
           <div className="container justify-content-between">
-            <Link tabindex="0" to="/" className="navbar-brand">Hexlet Chat</Link>
+            <Link tabIndex="0" to="/" className="navbar-brand">Hexlet Chat</Link>
             {
               auth.state.token
-                ? <Link tabindex="0" to="/logout">{t('navigation.logout')}</Link>
+                ? <Link tabIndex="0" to="/logout">{t('navigation.logout')}</Link>
                 : null
             }
           </div>
@@ -58,7 +58,7 @@ const App = () => {
       {
         modal.isOpened
           ? <Modal />
-          : null
+          : null  
       }
     </Router>
   );

@@ -24,7 +24,7 @@ export default () => {
 
   const footer = (
     <div className="text-center card-footer">
-      <span>{t('loginForm.noAccount')} <Link tabindex="0" to="/signup">{t('loginForm.signup')}</Link></span>
+      <span>{t('loginForm.noAccount')} <Link tabIndex="0" to="/signup">{t('loginForm.signup')}</Link></span>
     </div>
   );
 

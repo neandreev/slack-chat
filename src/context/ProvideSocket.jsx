@@ -1,5 +1,4 @@
-import { createContext, useContext, useState } from 'react';
-import axios from 'axios';
+import { createContext, useContext } from 'react';
 import { io } from 'socket.io-client';
 
 export const SocketContext = createContext();
