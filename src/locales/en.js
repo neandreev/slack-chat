@@ -4,8 +4,8 @@ export default {
       logout: 'Logout'
     },
     loginForm: {
-      login: "login",
-      password: "password",
+      login: "Login",
+      password: "Password",
       submit: "Login",
       signup: "Signup",
       header: "Welcome to chat",
@@ -13,11 +13,11 @@ export default {
       required: 'This field is required',
       loginLimit: 'From 3 to 20 symbols',
       passwordLimit: 'From 6 symbols',
-      noAccount: 'Нет аккаунта?',
+      noAccount: 'No account?',
     },
     signupForm: {
-      login: "login",
-      password: "password",
+      login: "Login",
+      password: "Password",
       passwordConfirmation: "Password confirmation",
       submit: "Sign up",
       header: "Sign up",
