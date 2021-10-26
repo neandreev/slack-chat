@@ -1,8 +1,7 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { useSocket } from '../../context/ProvideSocket';
+import { useSocket } from '../../context/ProvideSocket.jsx';
 import { getData } from '../../redux/actions/data';
-import Loading from '../../components/Loading/Loading.jsx';
 import Channels from '../../components/Chat/Channels.jsx';
 import ChatContent from '../../components/Chat/ChatContent.jsx';
 

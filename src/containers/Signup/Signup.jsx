@@ -1,9 +1,9 @@
 import * as yup from 'yup';
-import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router-dom';
 import { Formik, Form, Field } from 'formik';
-import AuthContainer from '../AuthContainer/AuthContainer';
-import { useAuth } from '../../context/ProvideAuth';
+import { useHistory } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import AuthContainer from '../AuthContainer/AuthContainer.jsx';
+import { useAuth } from '../../context/ProvideAuth.jsx';
 
 export default () => {
   const auth = useAuth();
@@ -28,7 +28,7 @@ export default () => {
       .oneOf([yup.ref('password'), ''], t('signupForm.passwordsNotMatch')),
   });
 
-  const FormikChildren = ({ errors, touched, isValid, isSubmitting }) => (
+  const FormikChildren = ({ errors, touched, isSubmitting }) => (
     <Form>
       <div className="form-floating my-2">
         <Field name="username" required className="form-control" />
@@ -71,7 +71,7 @@ export default () => {
       <Formik
         onSubmit={onSubmit}
         validationSchema={validationSchema}
-        initialValues={initialValues}  
+        initialValues={initialValues}
       >
         {FormikChildren}
       </Formik>

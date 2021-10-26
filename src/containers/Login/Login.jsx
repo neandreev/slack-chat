@@ -1,9 +1,9 @@
-import * as yup from 'yup'
+import * as yup from 'yup';
 import { Formik, Form, Field } from 'formik';
-import { useHistory, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useAuth } from '../../context/ProvideAuth';
-import AuthContainer from '../AuthContainer/AuthContainer';
+import { useHistory, Link } from 'react-router-dom';
+import { useAuth } from '../../context/ProvideAuth.jsx';
+import AuthContainer from '../AuthContainer/AuthContainer.jsx';
 
 export default () => {
   const auth = useAuth();
@@ -24,7 +24,13 @@ export default () => {
 
   const footer = (
     <div className="text-center card-footer">
-      <span>{t('loginForm.noAccount')} <Link tabIndex="0" to="/signup">{t('loginForm.signup')}</Link></span>
+      <span>
+        {t('loginForm.noAccount')}
+        &nbsp;
+        <Link tabIndex="0" to="/signup">
+          {t('loginForm.signup')}
+        </Link>
+      </span>
     </div>
   );
 
@@ -60,7 +66,7 @@ export default () => {
           type="submit"
         >
           {t('loginForm.submit')}
-        </button>        
+        </button>
       </div>
     </Form>
   );
@@ -70,7 +76,7 @@ export default () => {
       <Formik
         onSubmit={onSubmit}
         validationSchema={validationSchema}
-        initialValues={initialValues}  
+        initialValues={initialValues}
       >
         {FormikChildren}
       </Formik>

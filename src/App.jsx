@@ -5,18 +5,18 @@ import {
   Link,
   Redirect,
 } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import Login from './containers/Login/Login.jsx';
 import Logout from './components/Logout/Logout.jsx';
 import Signup from './containers/Signup/Signup.jsx';
-import { useAuth } from './context/ProvideAuth';
+import { useAuth } from './context/ProvideAuth.jsx';
 import Chat from './containers/Chat/Chat.jsx';
-import Modal from './components/Chat/ChannelsModal/ChannelsModal';
-import { useSelector } from 'react-redux';
+import Modal from './components/Chat/ChannelsModal/ChannelsModal.jsx';
 
 const App = () => {
   const auth = useAuth();
-  const modal = useSelector(state => state.modal);
+  const modal = useSelector((state) => state.modal);
   const { t } = useTranslation();
 
   return (
@@ -58,17 +58,11 @@ const App = () => {
       {
         modal.isOpened
           ? <Modal />
-          : null  
+          : null
       }
     </Router>
   );
 };
-
-const Loader = () => (
-  <div className="App">
-    <div>loading...</div>
-  </div>
-);
 
 const NoMatch = () => {
   const message = 'Error 404';

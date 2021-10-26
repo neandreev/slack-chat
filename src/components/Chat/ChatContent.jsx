@@ -1,18 +1,19 @@
 import { Formik, Field, Form } from 'formik';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAuth } from '../../context/ProvideAuth';
 import { useSelector, useDispatch } from 'react-redux';
+import { useAuth } from '../../context/ProvideAuth.jsx';
 import { getData, newMessage } from '../../redux/actions/data';
-import { useSocket } from '../../context/ProvideSocket';
-import Messages from './Messages/Messages';
+import { useSocket } from '../../context/ProvideSocket.jsx';
+import Messages from './Messages/Messages.jsx';
 
 const ChatContent = () => {
   const socket = useSocket();
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const { currentChannelId, messages } = useSelector((state) => state.data);
-  const currentChannelMessages = messages.filter((message) => message.channelId === currentChannelId);
+  const currentChannelMessages = messages
+    .filter((message) => message.channelId === currentChannelId);
   const { state: { username } } = useAuth();
 
   useEffect(() => {
@@ -29,12 +30,10 @@ const ChatContent = () => {
       textmessage,
       channelId: currentChannelId,
     };
-    
+
     socket.emit('newMessage', message);
     helpers.resetForm();
   };
-  
-  
 
   return (
     <div className="h-100 d-flex flex-column justify-content-between">

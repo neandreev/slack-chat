@@ -1,16 +1,15 @@
 // @ts-check
-import React from 'react';
 import ReactDOM from 'react-dom';
 import { I18nextProvider } from 'react-i18next';
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
-import { Provider as RollbarProvider, ErrorBoundary} from '@rollbar/react';
+import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
 import i18n from './i18n';
 import App from './App.jsx';
 import 'core-js/stable/index.js';
 import 'regenerator-runtime/runtime.js';
 import ProvideAuth from './context/ProvideAuth.jsx';
-import ProvideSocket from './context/ProvideSocket';
+import ProvideSocket from './context/ProvideSocket.jsx';
 
 import '../assets/application.scss';
 import rootReducer from './redux/rootReducer.js';
@@ -34,7 +33,7 @@ const app = (
         <I18nextProvider i18n={i18n}>
           <ProvideAuth>
             <ProvideSocket>
-                <App />
+              <App />
             </ProvideSocket>
           </ProvideAuth>
         </I18nextProvider>

@@ -1,11 +1,11 @@
+import { useEffect, useRef } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { Modal, Button } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
-import { useSocket } from '../../../context/ProvideSocket';
+import { useSocket } from '../../../context/ProvideSocket.jsx';
 import { closeModal } from '../../../redux/actions/modal';
 import { changeActiveChannel } from '../../../redux/actions/data';
-import { useEffect, useRef } from 'react';
 
 const ChannelsModal = () => {
   const socket = useSocket();
@@ -17,7 +17,7 @@ const ChannelsModal = () => {
   useEffect(() => {
     inputRef.current?.focus();
     inputRef.current?.select();
-  }, [])
+  }, []);
 
   const handleRemoveChannel = (id) => () => {
     socket.emit('removeChannel', { id }, () => {
@@ -25,8 +25,8 @@ const ChannelsModal = () => {
       dispatch(closeModal());
     });
   };
-  
-  const handleAddChannel = () => (name) => {  
+
+  const handleAddChannel = () => (name) => {
     socket.emit('newChannel', { name }, ({ data }) => {
       dispatch(changeActiveChannel(data.id));
       dispatch(closeModal());
@@ -67,6 +67,18 @@ const ChannelsModal = () => {
     helpers.resetForm();
   };
 
+  const InputForm = () => (
+    <Form>
+      <Field
+        autoComplete="off"
+        innerRef={inputRef}
+        className="form-control"
+        type="text"
+        name="channelName"
+      />
+    </Form>
+  );
+
   return (
     <Formik
       initialValues={{ channelName: modalState.data?.channelName || '' }}
@@ -80,15 +92,7 @@ const ChannelsModal = () => {
           <Modal.Body>
             {
               modalProperties.type === 'form'
-                ? <Form>
-                    <Field
-                      autoComplete="off"
-                      innerRef={inputRef}
-                      className="form-control"
-                      type="text"
-                      name="channelName"
-                    />
-                  </Form>
+                ? <InputForm />
                 : <div>{t('chat.confirmRemove')}</div>
             }
           </Modal.Body>

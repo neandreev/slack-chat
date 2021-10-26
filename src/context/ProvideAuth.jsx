@@ -5,6 +5,8 @@ export const AuthContext = createContext();
 
 export const useAuth = () => useContext(AuthContext);
 
+const initialState = { unauthorized: null, token: null, username: null };
+
 const useProvideAuth = () => {
   const [state, setState] = useState({
     username: null || localStorage.getItem('username'),
@@ -44,13 +46,13 @@ const useProvideAuth = () => {
         localStorage.setItem('token', res.data.token);
         localStorage.setItem('username', values.username);
         cb();
-      } catch(error) {
+      } catch (error) {
         setState({ ...state, conflict: true });
         console.log(error);
       }
     },
     signOut: () => {
-      setState({ ...state, unauthorized: null, token: null, username: null });
+      setState({ ...state, ...initialState });
       localStorage.removeItem('token');
       localStorage.removeItem('username');
     },
