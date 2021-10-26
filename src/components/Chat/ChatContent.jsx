@@ -18,10 +18,11 @@ const ChatContent = () => {
 
   useEffect(() => {
     dispatch(getData());
-
     socket.on('newMessage', (message) => {
       dispatch(newMessage({ message }));
     });
+
+    return () => socket.removeListener('newMessage');
   }, []);
 
   const handleNewMessage = ({ textmessage }, helpers) => {

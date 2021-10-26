@@ -34,6 +34,8 @@ const Channels = ({ channels }) => {
     socket.on('removeChannel', ({ id }) => {
       dispatch(removeChannel(id));
     });
+
+    return () => socket.removeAllListeners();
   }, []);
 
   useEffect(() => {
