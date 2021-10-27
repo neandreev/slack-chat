@@ -38,14 +38,6 @@ const Channels = ({ channels }) => {
     return () => socket.removeAllListeners();
   }, []);
 
-  useEffect(() => {
-    socket.on('removeChannel', ({ id }) => {
-      if (currentChannelId === id) {
-        dispatch(changeActiveChannel(1));
-      }
-    });
-  }, [currentChannelId]);
-
   const renderButton = (channel) => {
     const variant = cn({
       primary: currentChannelId === channel.id,

@@ -31,11 +31,13 @@ export default createSlice({
         { ...state, channels: [...state.channels, action.payload.channel] }
       ))
       .addCase('REMOVE_CHANNEL', (state, action) => {
+        const { currentChannelId } = state;
         const newState = {
           ...state,
           channels: state.channels.filter((channel) => channel.id !== action.payload.id),
           messages: state.messages.filter((message) => message.channelId !== action.payload.id),
         };
+        if (currentChannelId === action.payload.id) newState.currentChannelId = 1;
         return newState;
       })
       .addCase('RENAME_CHANNEL', (state, action) => (

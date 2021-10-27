@@ -21,7 +21,6 @@ const ChannelsModal = () => {
 
   const handleRemoveChannel = (id) => () => {
     socket.emit('removeChannel', { id }, () => {
-      dispatch(changeActiveChannel(1));
       dispatch(closeModal());
     });
   };
