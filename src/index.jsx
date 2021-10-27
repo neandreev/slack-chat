@@ -28,7 +28,7 @@ const rollbarConfig = {
 const store = configureStore({ reducer: rootReducer });
 
 const getApp = (socket) => {
-  const app = (
+  const BundledApp = () => (
     <RollbarProvider config={rollbarConfig}>
       <ErrorBoundary>
         <Provider store={store}>
@@ -44,7 +44,7 @@ const getApp = (socket) => {
     </RollbarProvider>
   );
 
-  return app;
+  return <BundledApp />;
 };
 
 ReactDOM.render(getApp(), document.querySelector('#chat'));
