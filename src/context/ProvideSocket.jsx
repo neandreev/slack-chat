@@ -5,11 +5,11 @@ export const SocketContext = createContext();
 
 export const useSocket = () => useContext(SocketContext);
 
-const ProvideSocket = ({ children }) => {
-  const socket = io.connect();
+const ProvideSocket = ({ children, socket }) => {
+  const connect = socket || io();
 
   return (
-    <SocketContext.Provider value={socket}>
+    <SocketContext.Provider value={connect}>
       { children }
     </SocketContext.Provider>
   );

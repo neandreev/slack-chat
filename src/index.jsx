@@ -26,20 +26,26 @@ const rollbarConfig = {
 
 const store = configureStore({ reducer: rootReducer });
 
-const app = (
-  <RollbarProvider config={rollbarConfig}>
-    <ErrorBoundary>
-      <Provider store={store}>
-        <I18nextProvider i18n={i18n}>
-          <ProvideAuth>
-            <ProvideSocket>
-              <App />
-            </ProvideSocket>
-          </ProvideAuth>
-        </I18nextProvider>
-      </Provider>
-    </ErrorBoundary>
-  </RollbarProvider>
-);
+const getApp = (socket) => {
+  const app = (
+    <RollbarProvider config={rollbarConfig}>
+      <ErrorBoundary>
+        <Provider store={store}>
+          <I18nextProvider i18n={i18n}>
+            <ProvideAuth>
+              <ProvideSocket socket={socket}>
+                <App />
+              </ProvideSocket>
+            </ProvideAuth>
+          </I18nextProvider>
+        </Provider>
+      </ErrorBoundary>
+    </RollbarProvider>
+  );
 
-ReactDOM.render(app, document.querySelector('#chat'));
+  return app;
+};
+
+ReactDOM.render(getApp(), document.querySelector('#chat'));
+
+export default getApp;
