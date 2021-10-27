@@ -44,12 +44,14 @@ const ChannelsModal = () => {
       submit: handleAddChannel,
       button: t('modal.submit.add'),
       type: 'form',
+      testid: 'add-channel',
     },
     renameChannel: {
       title: t('modal.renameTitle'),
       submit: handleRenameChannel,
       button: t('modal.submit.rename'),
       type: 'form',
+      testid: 'rename-channel',
     },
     removeChannel: {
       title: t('modal.removeTitle'),
@@ -73,6 +75,7 @@ const ChannelsModal = () => {
         innerRef={inputRef}
         className="form-control"
         type="text"
+        data-testid={modalProperties.testid}
         name="channelName"
       />
     </Form>
