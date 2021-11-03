@@ -44,7 +44,7 @@ export default {
       addTitle: 'Добавить канал',
       close: 'Закрыть',
       submit: {
-        add: 'Добавить',
+        add: 'Отправить',
         remove: 'Удалить',
         rename: 'Переименовать',
       },
