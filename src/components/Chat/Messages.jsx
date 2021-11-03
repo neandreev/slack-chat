@@ -11,9 +11,9 @@ const NewMessageForm = () => {
   const { t } = useTranslation();
 
   return (
-    <div className="d-flex mb-3">
-      <Form className="flex-fill me-1">
-        <div>
+    <Form>
+      <div className="d-flex mb-3">
+        <div className="flex-fill me-1">
           <Field
             autoComplete="off"
             data-testid="new-message"
@@ -23,11 +23,11 @@ const NewMessageForm = () => {
             name="textmessage"
           />
         </div>
-      </Form>
-      <button className="btn btn-primary ms-1" type="submit">
-        {t('chat.submit')}
-      </button>
-    </div>
+        <button className="btn btn-primary ms-1" type="submit">
+          {t('chat.submit')}
+        </button>
+      </div>
+    </Form>
   );
 };
 
