@@ -46,12 +46,14 @@ const useModalProperties = (type) => {
       title: t('modal.addTitle'),
       submit: handlers.addChannel,
       button: t('modal.submit.add'),
+      testId: 'add-channel',
       type: 'form',
     },
     renameChannel: {
       title: t('modal.renameTitle'),
       submit: handlers.renameChannel,
       button: t('modal.submit.rename'),
+      testId: 'rename-channel',
       type: 'form',
     },
     removeChannel: {
@@ -65,10 +67,11 @@ const useModalProperties = (type) => {
   return modalsProperties[type];
 };
 
-const InputForm = ({ inputRef }) => (
+const InputForm = ({ inputRef, testId }) => (
   <Form>
     <Field
       autoComplete="off"
+      data-testid={testId}
       innerRef={inputRef}
       className="form-control"
       type="text"
@@ -91,7 +94,7 @@ const ModalComponent = (modalProperties, ref) => {
         <Modal.Body>
           {
             modalProperties?.type === 'form'
-              ? <InputForm inputRef={ref} />
+              ? <InputForm inputRef={ref} testId={modalProperties.testId} />
               : <div>{t('chat.confirmRemove')}</div>
           }
         </Modal.Body>
