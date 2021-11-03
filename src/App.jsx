@@ -31,7 +31,7 @@ const Nav = ({ token }) => {
   return (
     <nav className="navbar navbar-light bg-light shadow">
       <div className="container justify-content-between">
-        <Link tabIndex="0" to="/" className="navbar-brand">Slack Chat</Link>
+        <Link tabIndex="0" to="/" className="navbar-brand">Hexlet Chat</Link>
         {
           token
             ? <Link tabIndex="0" to="/logout">{t('navigation.logout')}</Link>
