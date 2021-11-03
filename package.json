@@ -2,7 +2,7 @@
   "name": "@hexlet/code",
   "version": "0.1.0",
   "description": "",
-  "main": "src/bundledApp.jsx",
+  "main": "src/BundledApp.jsx",
   "type": "module",
   "engines": {
     "node": "16.x"
