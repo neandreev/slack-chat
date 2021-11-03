@@ -1,18 +1,18 @@
 import { createContext, useContext, useState } from 'react';
 import axios from 'axios';
 
-export const AuthContext = createContext();
+const AuthContext = createContext();
 
 export const useAuth = () => useContext(AuthContext);
 
-const initialState = { unauthorized: null, token: null, username: null };
+const initialState = { unauthorized: false, token: false, username: null };
 
 const useProvideAuth = () => {
   const [state, setState] = useState({
     username: null || localStorage.getItem('username'),
     token: localStorage.getItem('token'),
-    unauthorized: null,
-    conflict: null,
+    unauthorized: false,
+    conflict: false,
   });
 
   const auth = {
@@ -20,14 +20,14 @@ const useProvideAuth = () => {
       try {
         const normalized = { ...values, username: values.username.toLowerCase() };
         const res = await axios.post('/api/v1/login', normalized);
+        localStorage.setItem('token', res.data.token);
+        localStorage.setItem('username', normalized.username);
         setState({
           ...state,
           token: res.data.token,
           unauthorized: false,
           username: normalized.username,
         });
-        localStorage.setItem('token', res.data.token);
-        localStorage.setItem('username', normalized.username);
         cb();
       } catch (e) {
         setState({ ...state, unauthorized: true });
@@ -55,6 +55,9 @@ const useProvideAuth = () => {
       setState({ ...state, ...initialState });
       localStorage.removeItem('token');
       localStorage.removeItem('username');
+    },
+    resetForm: () => {
+      setState((oldState) => ({ ...oldState, conflict: false, unauthorized: false }));
     },
   };
 

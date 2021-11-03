@@ -1,8 +1,10 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import data from './reducers/data.js';
-import modal from './reducers/modal.js';
+import channels from './slices/channels.js';
+import messages from './slices/messages.js';
+import modal from './slices/modal.js';
 
 export default combineReducers({
-  data: data.reducer,
+  channels: channels.reducer,
+  messages: messages.reducer,
   modal: modal.reducer,
 });

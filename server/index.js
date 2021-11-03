@@ -6,6 +6,7 @@ import { fileURLToPath } from 'url';
 import fastify from 'fastify';
 import pointOfView from 'point-of-view';
 import fastifySocketIo from 'fastify-socket.io';
+import fastifyCompress from 'fastify-compress';
 import fastifyStatic from 'fastify-static';
 import fastifyJWT from 'fastify-jwt';
 import HttpErrors from 'http-errors';
@@ -38,6 +39,10 @@ const setUpViews = (app) => {
   });
 };
 
+const setUpCompress = (app) => {
+  app.register(fastifyCompress);
+};
+
 const setUpStaticAssets = (app) => {
   app.register(fastifyStatic, {
     root: path.join(appPath, 'dist/public'),
@@ -65,6 +70,7 @@ export default async (options) => {
 
   setUpAuth(app);
   setUpViews(app);
+  setUpCompress(app);
   setUpStaticAssets(app);
   await app.register(fastifySocketIo);
   addRoutes(app, options.state || {});

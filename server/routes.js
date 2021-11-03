@@ -1,11 +1,13 @@
 // @ts-check
 
-import _ from 'lodash';
+import {
+  get, noop, omit, uniqueId,
+} from 'lodash-es';
 import HttpErrors from 'http-errors';
 
 const { Unauthorized, Conflict } = HttpErrors;
 
-const getNextId = () => Number(_.uniqueId());
+const getNextId = () => Number(uniqueId());
 
 const buildState = (defaultState) => {
   const generalChannelId = getNextId();
@@ -46,7 +48,7 @@ export default (app, defaultState = {}) => {
   app.io.on('connect', (socket) => {
     console.log({ 'socket.id': socket.id });
 
-    socket.on('newMessage', (message, acknowledge = _.noop) => {
+    socket.on('newMessage', (message, acknowledge = noop) => {
       const messageWithId = {
         ...message,
         id: getNextId(),
@@ -56,7 +58,7 @@ export default (app, defaultState = {}) => {
       app.io.emit('newMessage', messageWithId);
     });
 
-    socket.on('newChannel', (channel, acknowledge = _.noop) => {
+    socket.on('newChannel', (channel, acknowledge = noop) => {
       const channelWithId = {
         ...channel,
         removable: true,
@@ -68,7 +70,7 @@ export default (app, defaultState = {}) => {
       app.io.emit('newChannel', channelWithId);
     });
 
-    socket.on('removeChannel', ({ id }, acknowledge = _.noop) => {
+    socket.on('removeChannel', ({ id }, acknowledge = noop) => {
       const channelId = Number(id);
       state.channels = state.channels.filter((c) => c.id !== channelId);
       state.messages = state.messages.filter((m) => m.channelId !== channelId);
@@ -78,7 +80,7 @@ export default (app, defaultState = {}) => {
       app.io.emit('removeChannel', data);
     });
 
-    socket.on('renameChannel', ({ id, name }, acknowledge = _.noop) => {
+    socket.on('renameChannel', ({ id, name }, acknowledge = noop) => {
       const channelId = Number(id);
       const channel = state.channels.find((c) => c.id === channelId);
       if (!channel) return;
@@ -90,8 +92,8 @@ export default (app, defaultState = {}) => {
   });
 
   app.post('/api/v1/login', async (req, reply) => {
-    const username = _.get(req, 'body.username');
-    const password = _.get(req, 'body.password');
+    const username = get(req, 'body.username');
+    const password = get(req, 'body.password');
     const user = state.users.find((u) => u.username === username);
 
     if (!user || user.password !== password) {
@@ -104,8 +106,8 @@ export default (app, defaultState = {}) => {
   });
 
   app.post('/api/v1/signup', async (req, reply) => {
-    const username = _.get(req, 'body.username');
-    const password = _.get(req, 'body.password');
+    const username = get(req, 'body.username');
+    const password = get(req, 'body.password');
     const user = state.users.find((u) => u.username === username);
 
     if (user) {
@@ -123,18 +125,15 @@ export default (app, defaultState = {}) => {
   });
 
   app.get('/api/v1/data', { preValidation: [app.authenticate] }, (req, reply) => {
-    console.log('REQUEST FOR DATA', req.user);
     const user = state.users.find(({ id }) => id === req.user.userId);
-    console.log('USER', user);
     if (!user) {
-      console.log('NO USER HERE');
       reply.send(new Unauthorized());
       return;
     }
 
     reply
       .header('Content-Type', 'application/json; charset=utf-8')
-      .send(_.omit(state, 'users'));
+      .send(omit(state, 'users'));
   });
 
   app

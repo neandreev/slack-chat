@@ -1,7 +1,7 @@
 // @ts-check
-
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const mode = process.env.NODE_ENV || 'development';
 
@@ -11,6 +11,7 @@ module.exports = {
     extensions: ['.js', '.jsx'],
   },
   output: {
+    filename: '[name].bundle.js',
     path: path.join(__dirname, 'dist', 'public'),
     publicPath: '/assets/',
   },
@@ -25,6 +26,7 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin(),
+    new BundleAnalyzerPlugin({ analyzerMode: 'static' }),
   ],
   module: {
     rules: [
@@ -38,7 +40,6 @@ module.exports = {
         use: [
           { loader: MiniCssExtractPlugin.loader },
           { loader: 'css-loader' },
-          { loader: 'postcss-loader' },
           { loader: 'sass-loader' },
         ],
       },
@@ -51,5 +52,5 @@ module.exports = {
       },
     ],
   },
-  devtool: 'eval-source-map',
+  devtool: 'source-map',
 };

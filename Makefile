@@ -1,4 +1,5 @@
-install: install-deps
+install:
+	yarn install
 
 start:
 	heroku local -f Procfile.dev
@@ -8,9 +9,6 @@ start-backend:
 
 start-frontend:
 	npx webpack serve
-
-install-deps:
-	npm ci
 
 build:
 	npm run build
