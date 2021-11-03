@@ -1,4 +1,5 @@
 import React from 'react';
+import { io } from 'socket.io-client';
 import { Provider } from 'react-redux';
 import { I18nextProvider } from 'react-i18next';
 import { configureStore } from '@reduxjs/toolkit';
@@ -19,13 +20,13 @@ const rollbarConfig = {
   enabled: true,
 };
 
-const BundledApp = () => (
+export const BundledApp = ({ socket = io.connect() }) => (
   <RollbarProvider config={rollbarConfig}>
     <ErrorBoundary>
       <Provider store={store}>
         <I18nextProvider i18n={i18n}>
           <ProvideAuth>
-            <ProvideSocket>
+            <ProvideSocket socket={socket}>
               <App />
             </ProvideSocket>
           </ProvideAuth>
@@ -35,4 +36,6 @@ const BundledApp = () => (
   </RollbarProvider>
 );
 
-export default BundledApp;
+const BundledAppWithCustomSocket = (socket) => <BundledApp socket={socket} />;
+
+export default BundledAppWithCustomSocket;
