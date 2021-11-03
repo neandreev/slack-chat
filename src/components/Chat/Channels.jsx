@@ -148,7 +148,7 @@ const Channels = () => {
             onClick={() => dispatch(addModal())}
             className="btn btn-secondary mb-3"
           >
-            {t('chat.addChannel')}
+            +
           </Button>
         </div>
       </div>
