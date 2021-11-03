@@ -1,4 +1,5 @@
 // @ts-check
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { I18nextProvider } from 'react-i18next';
 import { configureStore } from '@reduxjs/toolkit';
@@ -43,3 +44,5 @@ const app = (
 );
 
 ReactDOM.render(app, document.querySelector('#chat'));
+
+export default app;

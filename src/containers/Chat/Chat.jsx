@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import getData from '../../redux/actions/data';
 import Channels from '../../components/Chat/Channels.jsx';

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { filter, uniqueId } from 'lodash-es';
 import { Formik, Field, Form } from 'formik';
 import { useTranslation } from 'react-i18next';
@@ -31,10 +31,8 @@ const NewMessageForm = () => {
   );
 };
 
-const handleNewMessage = (username, channelId) => {
-  const socket = useSocket();
-
-  return ({ textmessage }, helpers) => {
+const handleNewMessage = (socket) => (username, channelId) => (
+  ({ textmessage }, helpers) => {
     const message = {
       username,
       textmessage,
@@ -43,8 +41,8 @@ const handleNewMessage = (username, channelId) => {
 
     socket.emit('newMessage', message);
     helpers.resetForm();
-  };
-};
+  }
+);
 
 const MessagesElements = ({ messages }) => (
   <>
@@ -109,7 +107,7 @@ const Messages = () => {
       <MessagesList />
       <Formik
         initialValues={{ textmessage: '' }}
-        onSubmit={handleNewMessage(username, currentChannelId)}
+        onSubmit={handleNewMessage(socket)(username, currentChannelId)}
         component={NewMessageForm}
       />
     </div>

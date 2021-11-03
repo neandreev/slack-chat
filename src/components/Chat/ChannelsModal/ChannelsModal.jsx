@@ -1,4 +1,4 @@
-import { useEffect, useRef, useMemo } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { Modal, Button } from 'react-bootstrap';
@@ -7,7 +7,7 @@ import { useSocket } from '../../../context/ProvideSocket.jsx';
 import { closeModal } from '../../../redux/slices/modal';
 import { changeActiveChannel } from '../../../redux/slices/channels';
 
-const getHandlers = () => {
+const useHandlers = () => {
   const socket = useSocket();
   const dispatch = useDispatch();
 
@@ -37,8 +37,8 @@ const getHandlers = () => {
   };
 };
 
-const getModalProperties = (type) => {
-  const handlers = getHandlers();
+const useModalProperties = (type) => {
+  const handlers = useHandlers();
   const { t } = useTranslation();
 
   const modalsProperties = {
@@ -77,39 +77,43 @@ const InputForm = ({ inputRef }) => (
   </Form>
 );
 
-const ModalComponent = (modalProperties, ref) => ({ handleSubmit }) => {
-  const dispatch = useDispatch();
-  const modalState = useSelector((state) => state.modal);
-  const { t } = useTranslation();
+const ModalComponent = (modalProperties, ref) => {
+  const useModalComponent = ({ handleSubmit }) => {
+    const dispatch = useDispatch();
+    const modalState = useSelector((state) => state.modal);
+    const { t } = useTranslation();
 
-  return (
-    <Modal show={modalState.isOpened} onHide={() => dispatch(closeModal())}>
-      <Modal.Header closeButton>
-        <Modal.Title>{modalProperties?.title}</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        {
-          modalProperties?.type === 'form'
-            ? <InputForm inputRef={ref} />
-            : <div>{t('chat.confirmRemove')}</div>
-        }
-      </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={() => dispatch(closeModal())}>
-          {t('modal.close')}
-        </Button>
-        <Button variant="primary" onClick={handleSubmit}>
-          {modalProperties?.button}
-        </Button>
-      </Modal.Footer>
-    </Modal>
-  );
+    return (
+      <Modal show={modalState.isOpened} onHide={() => dispatch(closeModal())}>
+        <Modal.Header closeButton>
+          <Modal.Title>{modalProperties?.title}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {
+            modalProperties?.type === 'form'
+              ? <InputForm inputRef={ref} />
+              : <div>{t('chat.confirmRemove')}</div>
+          }
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => dispatch(closeModal())}>
+            {t('modal.close')}
+          </Button>
+          <Button variant="primary" onClick={handleSubmit}>
+            {modalProperties?.button}
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  };
+
+  return useModalComponent;
 };
 
 const ChannelsModal = () => {
   const modalState = useSelector((state) => state.modal);
   const inputRef = useRef(null);
-  const modalProperties = getModalProperties(modalState.type);
+  const modalProperties = useModalProperties(modalState.type);
 
   const onSubmit = ({ channelName }, formikHelpers) => {
     modalProperties.submit(modalState.channelId, channelName);

@@ -11,23 +11,30 @@ const channelsSlice = createSlice({
   name: 'channels',
   initialState,
   reducers: {
-    addChannel: (channels, { payload }) => {
-      channels.channelsList.push(payload.channel);
-    },
-    changeActiveChannel: (channels, { payload }) => {
-      channels.currentChannelId = payload;
-    },
+    addChannel: (channels, { payload }) => (
+      {
+        ...channels,
+        channelsList: [...channels.channelsList, payload.channel],
+      }
+      // channels.channelsList.push(payload.channel);
+    ),
+    changeActiveChannel: (channels, { payload }) => (
+      { ...channels, currentChannelId: payload }
+      // channels.currentChannelId = payload;
+    ),
     removeChannel: (channels, { payload }) => {
+      const newChannels = { ...channels };
       const newChannelsList = reject(
         channels.channelsList,
         { id: payload.id },
       );
 
       if (payload.id === channels.currentChannelId) {
-        channels.currentChannelId = 1;
+        newChannels.currentChannelId = 1;
       }
 
-      channels.channelsList = newChannelsList;
+      newChannels.channelsList = newChannelsList;
+      return newChannels;
     },
     renameChannel: (channels, { payload }) => {
       const channel = find(
@@ -39,9 +46,13 @@ const channelsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getData.fulfilled, (channels, { payload }) => {
-        channels.channelsList = payload.channels;
-      })
+      .addCase(getData.fulfilled, (channels, { payload }) => (
+        {
+          ...channels,
+          channelsList: payload.channels,
+        }
+        // channels.channelsList = payload.channels;
+      ))
       .addCase(getData.rejected, (channels, { payload }) => {
         console.log(payload.error);
         return channels;

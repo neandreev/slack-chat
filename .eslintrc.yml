@@ -8,7 +8,8 @@ plugins:
   - jest-dom
 
 extends:
-  - airbnb
+  - "airbnb"
+  - "airbnb/hooks"
   - "plugin:jest/recommended"
   - "plugin:functional/external-recommended"
   - "plugin:functional/recommended"
