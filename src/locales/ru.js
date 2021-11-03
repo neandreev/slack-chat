@@ -16,7 +16,7 @@ export default {
       noAccount: 'Нет аккаунта?',
     },
     signupForm: {
-      login: 'Ваш ник',
+      login: 'Имя пользователя',
       password: 'Пароль',
       passwordConfirmation: 'Подтвердите пароль',
       submit: 'Зарегистрироваться',
