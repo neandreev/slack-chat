@@ -1,5 +1,5 @@
 {
-  "name": "slack-chat",
+  "name": "@hexlet/code",
   "version": "0.1.0",
   "description": "",
   "main": "server/index.js",
