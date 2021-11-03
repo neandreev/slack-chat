@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { filter, uniqueId } from 'lodash-es';
+import _ from 'lodash';
 import { Formik, Field, Form } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
@@ -48,7 +48,7 @@ const MessagesElements = ({ messages }) => (
   <>
     {
       messages.map(({ username, textmessage }) => (
-        <div key={username + textmessage + uniqueId()} className="my-1 rounded p-1 d-flex">
+        <div key={username + textmessage + _.uniqueId()} className="my-1 rounded p-1 d-flex">
           <div className="message-username mx-1 fw-bold">
             {username}
             :
@@ -65,7 +65,7 @@ const MessagesList = () => {
   const messages = useSelector((state) => state.messages);
   const messagesRef = useRef(null);
   const { currentChannelId } = useSelector((state) => state.channels);
-  const currentChannelMessages = filter(messages, { channelId: currentChannelId });
+  const currentChannelMessages = _.filter(messages, { channelId: currentChannelId });
 
   useEffect(() => {
     messagesRef.current.scrollTop = messagesRef.current.scrollHeight;

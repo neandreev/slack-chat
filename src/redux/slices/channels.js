@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { find, reject } from 'lodash-es';
+import _ from 'lodash';
 import getData from '../actions/data.js';
 
 const initialState = {
@@ -24,7 +24,7 @@ const channelsSlice = createSlice({
     ),
     removeChannel: (channels, { payload }) => {
       const newChannels = { ...channels };
-      const newChannelsList = reject(
+      const newChannelsList = _.reject(
         channels.channelsList,
         { id: payload.id },
       );
@@ -37,7 +37,7 @@ const channelsSlice = createSlice({
       return newChannels;
     },
     renameChannel: (channels, { payload }) => {
-      const channel = find(
+      const channel = _.find(
         channels.channelsList,
         { id: payload.id },
       );

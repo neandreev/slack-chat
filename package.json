@@ -42,7 +42,7 @@
     "i18next": "^21.3.3",
     "i18next-browser-languagedetector": "^6.1.2",
     "jquery": "^3.6.0",
-    "lodash-es": "^4.17.21",
+    "lodash": "^4.17.21",
     "mini-css-extract-plugin": "^2.4.3",
     "pino-pretty": "^7.1.0",
     "point-of-view": "^4.14.0",
