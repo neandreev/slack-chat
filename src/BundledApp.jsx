@@ -19,7 +19,7 @@ const rollbarConfig = {
   enabled: true,
 };
 
-const app = (
+const BundledApp = () => (
   <RollbarProvider config={rollbarConfig}>
     <ErrorBoundary>
       <Provider store={store}>
@@ -35,4 +35,4 @@ const app = (
   </RollbarProvider>
 );
 
-export default app;
+export default BundledApp;
