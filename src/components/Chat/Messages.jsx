@@ -13,7 +13,7 @@ const NewMessageForm = () => {
   return (
     <Form>
       <div className="d-flex mb-3">
-        <div className="flex-fill me-1">
+        <div className="flex-fill mr-1">
           <Field
             autoComplete="off"
             data-testid="new-message"
@@ -23,7 +23,7 @@ const NewMessageForm = () => {
             name="textmessage"
           />
         </div>
-        <button className="btn btn-primary ms-1" type="submit">
+        <button className="btn btn-primary ml-1" type="submit">
           {t('chat.submit')}
         </button>
       </div>
