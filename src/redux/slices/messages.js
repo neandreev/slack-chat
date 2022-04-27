@@ -15,7 +15,7 @@ const messagesSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getData.fulfilled, (messages, { payload }) => {
-        messages.push(...payload.messages);
+        return payload.messages;
       })
       .addCase(getData.rejected, (messages, { payload }) => {
         console.log(payload.error);
